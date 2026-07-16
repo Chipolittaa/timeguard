@@ -77,6 +77,3 @@ Visited URLs are processed only inside the browser to match configured domains. 
 - Automated tests for domain matching and time accounting
 - Additional interface languages
 
-## License
-
-Released under the [MIT License](LICENSE).
