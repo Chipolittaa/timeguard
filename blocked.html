@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Лимит исчерпан — TimeGuard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --accent: #e63946;
+      --accent2: #ff6b6b;
+      --text: #e8e8f0;
+      --muted: #7070a0;
+      --surface: #13131a;
+      --border: #2a2a3d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    /* Анимированная сетка */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    /* Красное свечение сзади */
+    .glow {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(230,57,70,.15) 0%, transparent 70%);
+      pointer-events: none;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+      50%       { opacity: .6; transform: translate(-50%,-50%) scale(1.1); }
+    }
+
+    .card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid rgba(230,57,70,.4);
+      border-radius: 20px;
+      padding: 48px 56px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 0 80px rgba(230,57,70,.15);
+    }
+
+    .icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      display: block;
+      animation: shake 1s ease .3s both;
+    }
+
+    @keyframes shake {
+      0%,100% { transform: rotate(0); }
+      20%      { transform: rotate(-10deg); }
+      40%      { transform: rotate(10deg); }
+      60%      { transform: rotate(-6deg); }
+      80%      { transform: rotate(6deg); }
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      color: var(--accent2);
+    }
+
+    .domain-badge {
+      display: inline-block;
+      background: rgba(230,57,70,.12);
+      border: 1px solid rgba(230,57,70,.3);
+      border-radius: 8px;
+      padding: 6px 16px;
+      font-family: 'Space Mono', monospace;
+      font-size: 16px;
+      color: var(--accent2);
+      margin: 16px 0;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .limit-info {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--muted);
+      margin: 20px 0 28px;
+      padding: 12px;
+      background: rgba(255,255,255,.03);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .limit-info strong { color: var(--text); }
+
+    .btn-settings {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 28px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .2s;
+      box-shadow: 0 4px 20px rgba(230,57,70,.35);
+    }
+
+    .btn-settings:hover {
+      background: var(--accent2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(230,57,70,.45);
+    }
+
+    .countdown {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="card">
+    <span class="icon">⛔</span>
+    <h1>Лимит исчерпан</h1>
+    <div class="domain-badge" id="domain-badge">сайт</div>
+    <p>Ты достиг своего дневного лимита на этом сайте.</p>
+    <div class="limit-info">
+      Дневной лимит: <strong id="limit-val">—</strong><br>
+      Лимит сбросится в <strong>00:00</strong>
+    </div>
+    <a href="#" class="btn-settings" id="btn-settings">Изменить настройки</a>
+    <div class="countdown" id="countdown"></div>
+  </div>
+
+  <script src="blocked.js"></script>
+</body>
+</html>

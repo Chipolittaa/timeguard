@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>TimeGuard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --surface2: #1c1c27;
+      --border: #2a2a3d;
+      --accent: #e63946;
+      --green: #06d6a0;
+      --yellow: #ffd166;
+      --text: #e8e8f0;
+      --muted: #7070a0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      width: 300px;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    /* Шапка */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-icon {
+      font-size: 20px;
+    }
+
+    .header-title {
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.3px;
+      flex: 1;
+    }
+
+    .btn-settings-icon {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 14px;
+      display: grid; place-items: center;
+      transition: all .2s;
+    }
+    .btn-settings-icon:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Текущий сайт */
+    .current-site {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .site-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      margin-bottom: 6px;
+    }
+
+    .site-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .site-time {
+      font-size: 28px;
+      font-weight: 800;
+      margin: 4px 0 2px;
+      line-height: 1;
+    }
+
+    .site-bar {
+      height: 3px;
+      background: var(--surface2);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .site-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width .4s;
+    }
+
+    .site-limit-label {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      margin-top: 4px;
+    }
+
+    /* Список правил */
+    .list-section {
+      padding: 12px 16px;
+    }
+
+    .list-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      margin-bottom: 8px;
+    }
+
+    .rule-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .rule-row:last-child { border-bottom: none; }
+
+    .rule-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .rule-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .rule-pct {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .empty-popup {
+      padding: 20px 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .btn-open-settings {
+      display: block;
+      margin: 12px 16px 14px;
+      padding: 10px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      text-align: center;
+      transition: all .2s;
+    }
+    .btn-open-settings:hover { filter: brightness(1.1); }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="header-icon">⏱</span>
+    <span class="header-title">TimeGuard</span>
+    <button class="btn-settings-icon" id="btn-settings" title="Настройки">⚙️</button>
+  </div>
+
+  <div id="popup-body"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
